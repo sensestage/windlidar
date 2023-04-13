@@ -1,3 +1,6 @@
+// Data files from: https://dataplatform.knmi.nl/dataset/access/windlidar-nz-wp-platform-10min-1
+
+
 ~basePath = "/home/nescivi/Documents/Projects/TheTurbinePlays/lidar-data/";
 
 a = ZLData.new( ~basePath +/+ "ZephIR_windlidar_BSA_10min_201911210000_201911212350_v1.CSV" );
