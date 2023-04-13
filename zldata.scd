@@ -1,7 +1,11 @@
 // Data files from: https://dataplatform.knmi.nl/dataset/access/windlidar-nz-wp-platform-10min-1
 
+// this code uses the SenseWorld quark (for the .specMap method)
 
-~basePath = "/home/nescivi/Documents/Projects/TheTurbinePlays/lidar-data/";
+//~basePath = "/home/nescivi/Documents/Projects/TheTurbinePlays/lidar-data/";
+
+~basePath = "/media/nescivi/opslag/Projects/TheTurbinePlays/KNMI-data"
+
 
 a = ZLData.new( ~basePath +/+ "ZephIR_windlidar_BSA_10min_201911210000_201911212350_v1.CSV" );
 
@@ -56,6 +60,8 @@ p.setProperties( \plotColor, [
 // TODO:
 // if value is larger than 9000, it is probably a wrong measurement. Then replace with the last value, or interpolate to the next value
 
+// start the audio engine
+s.boot;
 
 // example of mapping to a frequency
 
@@ -69,12 +75,13 @@ Tdef( \playData, {
 	a.windData[14].at( \horizontalWind ).do{ |it|
 		// [ it, ~range.unmap( it ), ~scale.degreeToFreq( ~range.unmap( it ) * 12, 110, 1 ), it.specMap( ~range, ~freqRange ) ].postln;
 		// ( dur: 0.2, freq:  ~scale.degreeToFreq( ~range.unmap( it ) * 12, 55, 0 ) ).play;
-		( dur: 0.2, freq: it.specMap( ~range, ~freqRange ) ).play;
+		( dur: 0.1, freq: it.specMap( ~range, ~freqRange ) ).play;
 		0.2.wait;
 	};
 }).play;
 );
 
+s.dumpOSC( 0 );
 
 Tdef( \playData ).stop;
 Tdef( \playData ).play;
